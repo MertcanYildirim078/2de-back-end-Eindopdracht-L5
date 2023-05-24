@@ -1,3 +1,9 @@
+<?php 
+    require "Connect.php";
+    $id = $_GET["id"] - 1 ; 
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,41 +13,57 @@
     <link href="resources/css/style.css" rel="stylesheet"/>
 </head>
 <body>
-<header><h1>Bowser</h1>
-    <a class="backbutton" href="index.php"><i class="fas fa-long-arrow-alt-left"></i> Terug</a></header>
-<div id="container">
-    <div class="detail">
-        <div class="left">
-            <img class="avatar" src="resources/images/bowser.jpg">
-            <div class="stats" style="background-color: yellowgreen">
-                <ul class="fa-ul">
-                    <li><span class="fa-li"><i class="fas fa-heart"></i></span> 10000</li>
-                    <li><span class="fa-li"><i class="fas fa-fist-raised"></i></span> 400</li>
-                    <li><span class="fa-li"><i class="fas fa-shield-alt"></i></span> 100</li>
-                </ul>
-                <ul class="gear">
-                    <li><b>Weapon</b>: Fire Breath</li>
-                    <li><b>Armor</b>: Giant Shell</li>
-                </ul>
+
+
+    <?php $contentConnect = getStuffAndConnect("SELECT * FROM characters ");?>
+
+    <header><h1> <?= $contentConnect[$id]['name']?> </h1>
+
+    <a class="backbutton" href="index.php"><i class="fas fa-long-arrow-alt-left"></i> Terug</a>
+
+    </header>
+
+    <div id="container">
+        <div class="detail">
+
+
+            <div class="left">
+                <img class="avatar" src="resources/images/<?= $contentConnect[$id]["avatar"] ?>">
+                <div class="stats" style="background-color:<?= $contentConnect[$id]["color"] ?>">
+                    <ul class="fa-ul">
+                        <li><span class="fa-li"><i class="fas fa-heart"></i></span> <?= $contentConnect[$id]["health"] ?></li>
+                        <li><span class="fa-li"><i class="fas fa-fist-raised"></i></span> <?= $contentConnect[$id]["attack"] ?></li>
+                        <li><span class="fa-li"><i class="fas fa-shield-alt"></i></span> <?= $contentConnect[$id]["defense"] ?></li>
+                    </ul>
+                    <ul class="gear">
+                        <?php if($contentConnect[$id]["weapon"] == NULL) {?>
+                            <li></li>
+                            <?php } 
+
+                              else { ?>
+                                <li><b>Weapon</b>: <?= $contentConnect[$id]["weapon"] ?></li>
+                                <?php } ?>
+
+                        <?php if($contentConnect[$id]["armor"] == NULL) {?>
+                        <li></li>
+                        <?php } 
+                              else { ?>
+                              <li><b>Armor</b>: <?= $contentConnect[$id]["armor"] ?></li>
+                              <?php } ?>
+                    </ul>
+                </div>
             </div>
+            <div class="right">
+                <p>
+                <?= $contentConnect[$id]["bio"] ?>
+                </p>
+            </div>
+            <div style="clear: both"></div>
+
         </div>
-        <div class="right">
-            <p>
-                Bowser or King Koopa, is a fictional character and the main antagonist of Nintendo's Mario franchise. In
-                Japan, the character bears the title of Great Demon King. In the U.S., the character was first referred
-                to as "Bowser, King of the Koopas" and "the sorcerer king" in the instruction manual.<br/>
-                <br/>
-                Bowser is the leader of the turtle-like Koopa race, and has been the archenemy of Mario since his first
-                appearance, in the 1985 video game Super Mario Bros.<br/>
-                <br/>
-                His ultimate goals are to kidnap Princess Peach, defeat Mario, and conquer the Mushroom Kingdom. Since
-                his debut, he has appeared in almost every Mario franchise game, usually serving as the main antagonist.
-                Bowser is voiced by Kenny James.
-            </p>
-        </div>
-        <div style="clear: both"></div>
     </div>
-</div>
-<footer>&copy; Mertcan Yildirim 2023</footer>
+
+    <footer>&copy; Mertcan Yildirim 2023</footer>
+
 </body>
 </html>

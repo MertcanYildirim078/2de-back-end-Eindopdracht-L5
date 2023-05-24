@@ -16,9 +16,8 @@
 		return $conn;
 	}
 		
-		function getStuffAndConnect($id) {
+		function getStuffAndConnect($query) {
 			$connection = connect();
-			$query = "SELECT * FROM characters where id = $id";
 
 			$statement = $connection->prepare($query);
 			$statement->execute();
